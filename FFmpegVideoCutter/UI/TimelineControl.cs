@@ -147,8 +147,7 @@ public sealed class TimelineControl : Control
         var nearStart = Math.Abs(p.X - ToPx(_start)) <= HandleRadius;
         var nearEnd = Math.Abs(p.X - ToPx(_end)) <= HandleRadius;
 
-        if (nearStart && nearEnd)
-            return _end <= _start + 0.5 ? DragMode.Start : DragMode.Start;
+        if (nearStart && nearEnd) return DragMode.Start;
         if (nearStart) return DragMode.Start;
         if (nearEnd) return DragMode.End;
         return DragMode.None;

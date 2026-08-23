@@ -79,6 +79,7 @@ public sealed class FFmpegService
         catch (OperationCanceledException)
         {
             try { process.Kill(entireProcessTree: true); } catch { }
+            TryDeleteOutput(job.OutputPath);
             return new CutResult { Success = false, ExitCode = -1, Error = "已取消" };
         }
 
@@ -121,6 +122,11 @@ public sealed class FFmpegService
         }
 
         return result;
+    }
+
+    private static void TryDeleteOutput(string path)
+    {
+        try { if (File.Exists(path)) File.Delete(path); } catch { }
     }
 
     private static string LastLines(string text, int count)
